@@ -15,12 +15,10 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -28,52 +26,31 @@ import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Created by Ahmed Magdy on 1/15/2018.
+ */
+
 public class MainActivity extends AppCompatActivity {
-
-    TextView textCounter;
-
-    MyCountDownTimer myCountDownTimer;
-
-    AnimatedCircleLoadingView  animatedCircleLoadingView;
-
+    private MyCountDownTimer myCountDownTimer;
+    private AnimatedCircleLoadingView  animatedCircleLoadingView;
     private CardView cardView;
     private FloatingActionButton mStart;
-    private TextView mUsernameInput, mText, mScore , mPoints, mTextPoint ,mSkip,mQuestion;
+    private TextView mUsernameInput, mText, mScore , mPoints, mTextPoint ,mSkip,mQuestion,textCounter;
     private TextInputLayout mUsernameInputLayout;
     private LinearLayout linearLayout;
     private final int GALLERY_REQUEST=1;
     private Uri mImageUri = null;
     private CircleImageView mSelectImage,mSelectImage2;
-    private int mScoreGet = 0;
-    private int mPoint = 0;
+    private int mScoreGet = 0,mPoint = 0;
     private TranslateAnimation anim1,anim2,anim3,anim4;
     private Button ans1,ans2,ans3,ans4;
-
     private Questions mQuestions = new Questions();
     private String mAnswer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        anim1 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
-        anim1.setDuration(1000);
-
-        anim2 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
-        anim2.setDuration(2000);
-
-        anim3 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
-        anim3.setDuration(3000);
-
-        anim4 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
-        anim4.setDuration(4000);
-
-        mQuestion = (TextView)findViewById(R.id.question);
-        ans1 = (Button)findViewById(R.id.answer1);
-        ans2 = (Button)findViewById(R.id.answer2);
-        ans3 = (Button)findViewById(R.id.answer3);
-        ans4 = (Button)findViewById(R.id.answer4);
-
+        viewDefinition();
         ans1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,10 +203,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        mUsernameInput = (android.widget.TextView) findViewById(R.id.input_username);
-        mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_username_layout);
         mUsernameInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,6 +218,15 @@ public class MainActivity extends AppCompatActivity {
                 validateUsernameLength();
             }
         });
+    }
+    public void viewDefinition(){
+        mUsernameInput = (TextView) findViewById(R.id.input_username);
+        mUsernameInputLayout = (TextInputLayout) findViewById(R.id.input_username_layout);
+        mQuestion = (TextView)findViewById(R.id.question);
+        ans1 = (Button)findViewById(R.id.answer1);
+        ans2 = (Button)findViewById(R.id.answer2);
+        ans3 = (Button)findViewById(R.id.answer3);
+        ans4 = (Button)findViewById(R.id.answer4);
         cardView = (CardView)findViewById(R.id.container);
         mStart = (FloatingActionButton)findViewById(R.id.start_quiz);
         linearLayout = (LinearLayout)findViewById(R.id.welcome);
@@ -255,33 +237,19 @@ public class MainActivity extends AppCompatActivity {
         mPoints = (TextView) findViewById(R.id.points);
         mTextPoint = (TextView)findViewById(R.id.txt_points);
         mSkip = (TextView)findViewById(R.id.skip);
-
         textCounter = (TextView)findViewById(R.id.counter);
-
         animatedCircleLoadingView = (AnimatedCircleLoadingView) findViewById(R.id.circle_loading_view);
+        anim1 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
+        anim1.setDuration(1000);
+        anim2 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
+        anim2.setDuration(2000);
+        anim3 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
+        anim3.setDuration(3000);
+        anim4 = new TranslateAnimation(-1000f, 0f, 0f, 0f);
+        anim4.setDuration(4000);
         animatedCircleLoadingView.setPercent(10);
         myCountDownTimer = new MyCountDownTimer(60*1000, 1000);
     }
-
-    public class MyCountDownTimer extends CountDownTimer {
-
-        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            int progress = (int) (millisUntilFinished/1000);
-            textCounter.setText("00:"+String.valueOf(progress));
-        }
-
-        @Override
-        public void onFinish() {
-            gameOver();
-        }
-
-    }
-
     private boolean validateUsernameDuplicate() {
         boolean isValid = true;
         return isValid;
@@ -402,5 +370,23 @@ public class MainActivity extends AppCompatActivity {
             mSelectImage.setImageURI(mImageUri);
             mSelectImage2.setImageURI(mImageUri);
         }
+    }
+    public class MyCountDownTimer extends CountDownTimer {
+
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            int progress = (int) (millisUntilFinished/1000);
+            textCounter.setText("00:"+String.valueOf(progress));
+        }
+
+        @Override
+        public void onFinish() {
+            gameOver();
+        }
+
     }
 }
