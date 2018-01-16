@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CircleImageView mSelectImage,mSelectImage2;
 
-    private int mScoreGet = 1,mPoint = 0;
+    private int mScoreGet,mPoint;
 
     private TranslateAnimation anim1,anim2,anim3,anim4;
 
@@ -82,6 +82,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewDefinition();
+
+        mUsernameInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validateUsernameLength();
+            }
+        });
+
         ans1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,21 +254,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        mUsernameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateUsernameDuplicate();
-                validateUsernameLength();
-            }
-        });
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -328,8 +329,8 @@ public class MainActivity extends AppCompatActivity {
         mFinishAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ch = editText.getText().toString().toLowerCase();
-                if(ch.equals(mAnswer)){
+                String ch = editText.getText().toString().trim();
+                if(ch.equalsIgnoreCase(mAnswer)){
                     animatedCircleLoadingView.stopOk();
                     editText.setBackgroundResource(R.drawable.answer_right);
                     mPoint+=10;
@@ -364,57 +365,40 @@ public class MainActivity extends AppCompatActivity {
         mFinishCheckAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mCheck1.isChecked()){
-                    if (mCheck1.getText()==mAnswer){
-                        mCheck1.setBackgroundResource(R.drawable.answer_wrong);
-                    }else{
-                        mCheck1.setBackgroundResource(R.drawable.answer_right);
-                    }
-                }
-                if(mCheck2.isChecked()){
-                    if (mCheck2.getText()==mAnswer){
-                        mCheck2.setBackgroundResource(R.drawable.answer_wrong);
-                    }else{
-                        mCheck2.setBackgroundResource(R.drawable.answer_right);
-                    }
-                }
-                if(mCheck3.isChecked()){
-                    if (mCheck3.getText()==mAnswer){
-                        mCheck3.setBackgroundResource(R.drawable.answer_wrong);
-                    }else{
-                        mCheck3.setBackgroundResource(R.drawable.answer_right);
-                    }
-                }
-                if(mCheck4.isChecked()){
-                    if (mCheck4.getText()==mAnswer){
-                        mCheck4.setBackgroundResource(R.drawable.answer_wrong);
-                        animatedCircleLoadingView.stopFailure();
-                        mScoreGet++;
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                animatedCircleLoadingView.resetLoading();
-                                mScore.setText(String.valueOf(mScoreGet)+"/10");
-                                getQuestion(mScoreGet);
-                            }
-                        },1000);
-                    }else{
-                        mCheck4.setBackgroundResource(R.drawable.answer_right);
-                        animatedCircleLoadingView.stopOk();
-                        mPoint+=10;
-                        mPoints.setText(String.valueOf(mPoint));
-                        mScoreGet++;
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                animatedCircleLoadingView.resetLoading();
-                                mScore.setText(String.valueOf(mScoreGet)+"/10");
-                                getQuestion(mScoreGet);
-                            }
-                        },1000);
-                    }
+                if(mCheck1.isChecked()&&!mCheck2.isChecked()&&mCheck3.isChecked()&&mCheck4.isChecked()){
+                    mCheck1.setBackgroundResource(R.drawable.answer_right);
+                    mCheck2.setBackgroundResource(R.drawable.answer_wrong);
+                    mCheck3.setBackgroundResource(R.drawable.answer_right);
+                    mCheck4.setBackgroundResource(R.drawable.answer_right);
+                    animatedCircleLoadingView.stopOk();
+                    mPoint+=10;
+                    mPoints.setText(String.valueOf(mPoint));
+                    mScoreGet++;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            animatedCircleLoadingView.resetLoading();
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
+                            getQuestion(mScoreGet);
+                        }
+                    },1000);
+                }else{
+                    mCheck1.setBackgroundResource(R.drawable.answer_right);
+                    mCheck2.setBackgroundResource(R.drawable.answer_wrong);
+                    mCheck3.setBackgroundResource(R.drawable.answer_right);
+                    mCheck4.setBackgroundResource(R.drawable.answer_right);
+                    animatedCircleLoadingView.stopFailure();
+                    mScoreGet++;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            animatedCircleLoadingView.resetLoading();
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
+                            getQuestion(mScoreGet);
+                        }
+                    },1000);
                 }
             }
         });
@@ -459,10 +443,7 @@ public class MainActivity extends AppCompatActivity {
         mCheck3 = (CheckBox)findViewById(R.id.check3);
         mCheck4 = (CheckBox)findViewById(R.id.check4);
         mFinishCheckAnswer = (FloatingActionButton) findViewById(R.id.finish_answer_check);
-    }
-    private boolean validateUsernameDuplicate() {
-        boolean isValid = true;
-        return isValid;
+        mScoreGet=1;
     }
     private boolean validateUsernameLength() {
         boolean isValid;
@@ -482,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         return isValid;
     }
     public void animateView(View view){
-        if (validateUsernameDuplicate() && validateUsernameLength()){
+        if (validateUsernameLength()){
             cardView.animate()
                     .translationY(0)
                     .alpha(0.0f)

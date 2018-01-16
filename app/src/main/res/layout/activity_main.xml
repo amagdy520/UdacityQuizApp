@@ -11,8 +11,8 @@
     >
     <RelativeLayout
         android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         style="@style/FullScreenTheme"
         >
         <RelativeLayout
@@ -225,6 +225,7 @@
                 android:layout_marginTop="30dp"
                 android:visibility="invisible"
                 android:hint="@string/hint_answer"
+                android:inputType="text"
                 />
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"

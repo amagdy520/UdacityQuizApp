@@ -4,7 +4,7 @@ package com.quiz.udacity;
  * Created by Ahmed Magdy on 1/15/2018.
  */
 
-public class Questions {
+class Questions {
     public String mQuestions []={
             "",
             "What is the range of short data type in Java?",
