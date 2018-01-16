@@ -13,9 +13,9 @@ public class Questions {
             "First generation of computer was based on",
             "Second generation computers are made of",
             "Which of the following memory is non-volatile",
-            "GUI stands for",
-            "Time during which a job is processed by the computer is",
-            "Circuit  used as a 'Memory device' in computers"
+            "GUI stands for Graphical User Interface",
+            "What is the full form of CPU?",
+            "What is the programming languages from the above answer?(choose all the right)"
     };
     private String mChoices[][]={
             {"-128 to 127","-32768 to 32767","-2147483648 to 2147483647","None of the mentioned"},
@@ -25,9 +25,9 @@ public class Questions {
             {"Transistor","LSI","VLSI","Vaccum Tube"},
             {"Vaccum Tubes","Transistors","LSI","VLSI"},
             {"SRAM","DRAM","ROM","All of the above"},
-            {"Graph Use Interface","Graphical User Interface","Graphical Unique Interface","None of these"},
-            {"Execution Time","Delay Time","Real Time","Waiting Time"},
-            {"Rectifier","Flip Flop","Comparator","Attenuator"}
+            {"True","False"},
+            {"",""},
+            {"C++","Flip Flop","Python","Java"}
     };
     private String mCorrectAnswer []={
             "-32768 to 32767",
@@ -37,8 +37,10 @@ public class Questions {
             "Vaccum Tube",
             "Transistors",
             "ROM",
-            "Graphical User Interface",
-            "Waiting Time",
+            "True",
+            "central processing unit"
+    };
+    private String mWrongAnswer[]={
             "Flip Flop"
     };
     public String getQuestion(int a){
@@ -63,6 +65,10 @@ public class Questions {
     }
     public String getCorrectAnswer(int a){
         String answer = mCorrectAnswer[a];
+        return answer;
+    }
+    public String getWrongAnswerMultiple(){
+        String answer = mWrongAnswer[0];
         return answer;
     }
 }

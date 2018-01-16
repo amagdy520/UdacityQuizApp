@@ -18,7 +18,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private MyCountDownTimer myCountDownTimer;
     private AnimatedCircleLoadingView  animatedCircleLoadingView;
     private CardView cardView;
-    private FloatingActionButton mStart;
+    private FloatingActionButton mStart, mFinishAnswer, mFinishCheckAnswer;
     private TextView mUsernameInput, mText, mScore , mPoints, mTextPoint ,mSkip,mQuestion,textCounter;
     private TextInputLayout mUsernameInputLayout;
     private LinearLayout linearLayout;
@@ -46,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private Button ans1,ans2,ans3,ans4;
     private Questions mQuestions = new Questions();
     private String mAnswer;
+    private RadioButton mRadio1,mRadio2;
+    private RadioGroup mRadioGroup;
+    private EditText editText;
+    private CheckBox mCheck1,mCheck2,mCheck3,mCheck4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,6 +226,168 @@ public class MainActivity extends AppCompatActivity {
                 validateUsernameLength();
             }
         });
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selectId = mRadioGroup.getCheckedRadioButtonId();
+                switch (selectId){
+                    case R.id.answer1_true:
+                        if(mRadio1.getText()== mAnswer){
+                            animatedCircleLoadingView.stopOk();
+                            mRadio1.setBackgroundResource(R.drawable.answer_right);
+                            mPoint+=10;
+                            mPoints.setText(String.valueOf(mPoint));
+                            mScoreGet++;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    animatedCircleLoadingView.resetLoading();
+                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    getQuestion(mScoreGet);
+                                }
+                            },1000);
+                        }else{
+                            animatedCircleLoadingView.stopFailure();
+                            mRadio1.setBackgroundResource(R.drawable.answer_wrong);
+                            mScoreGet++;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    animatedCircleLoadingView.resetLoading();
+                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    getQuestion(mScoreGet);
+                                }
+                            },1000);
+                        }
+                        break;
+                    case R.id.answer2_false:
+                        if(mRadio2.getText()== mAnswer){
+                            animatedCircleLoadingView.stopOk();
+                            mRadio2.setBackgroundResource(R.drawable.answer_right);
+                            mPoint+=10;
+                            mPoints.setText(String.valueOf(mPoint));
+                            mScoreGet++;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    animatedCircleLoadingView.resetLoading();
+                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    getQuestion(mScoreGet);
+                                }
+                            },1000);
+                        }else{
+                            animatedCircleLoadingView.stopFailure();
+                            mRadio2.setBackgroundResource(R.drawable.answer_wrong);
+                            mScoreGet++;
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    animatedCircleLoadingView.resetLoading();
+                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    getQuestion(mScoreGet);
+                                }
+                            },1000);
+                        }
+                        break;
+                }
+            }
+        });
+        mFinishAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ch = editText.getText().toString().toLowerCase();
+                if(ch.equals(mAnswer)){
+                    animatedCircleLoadingView.stopOk();
+                    editText.setBackgroundResource(R.drawable.answer_right);
+                    mPoint+=10;
+                    mPoints.setText(String.valueOf(mPoint));
+                    mScoreGet++;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            animatedCircleLoadingView.resetLoading();
+                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            getQuestion(mScoreGet);
+                        }
+                    },1000);
+                }else{
+                    animatedCircleLoadingView.stopFailure();
+                    editText.setBackgroundResource(R.drawable.answer_wrong);
+                    mScoreGet++;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            animatedCircleLoadingView.resetLoading();
+                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            getQuestion(mScoreGet);
+                        }
+                    },1000);
+                }
+            }
+        });
+        mFinishCheckAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheck1.isChecked()){
+                    if (mCheck1.getText()==mAnswer){
+                        mCheck1.setBackgroundResource(R.drawable.answer_wrong);
+                    }else{
+                        mCheck1.setBackgroundResource(R.drawable.answer_right);
+                    }
+                }
+                if(mCheck2.isChecked()){
+                    if (mCheck2.getText()==mAnswer){
+                        mCheck2.setBackgroundResource(R.drawable.answer_wrong);
+                    }else{
+                        mCheck2.setBackgroundResource(R.drawable.answer_right);
+                    }
+                }
+                if(mCheck3.isChecked()){
+                    if (mCheck3.getText()==mAnswer){
+                        mCheck3.setBackgroundResource(R.drawable.answer_wrong);
+                    }else{
+                        mCheck3.setBackgroundResource(R.drawable.answer_right);
+                    }
+                }
+                if(mCheck4.isChecked()){
+                    if (mCheck4.getText()==mAnswer){
+                        mCheck4.setBackgroundResource(R.drawable.answer_wrong);
+                        animatedCircleLoadingView.stopFailure();
+                        mScoreGet++;
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                animatedCircleLoadingView.resetLoading();
+                                mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                getQuestion(mScoreGet);
+                            }
+                        },1000);
+                    }else{
+                        mCheck4.setBackgroundResource(R.drawable.answer_right);
+                        animatedCircleLoadingView.stopOk();
+                        mPoint+=10;
+                        mPoints.setText(String.valueOf(mPoint));
+                        mScoreGet++;
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                animatedCircleLoadingView.resetLoading();
+                                mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                getQuestion(mScoreGet);
+                            }
+                        },1000);
+                    }
+                }
+            }
+        });
     }
     public void viewDefinition(){
         mUsernameInput = (TextView) findViewById(R.id.input_username);
@@ -249,6 +419,16 @@ public class MainActivity extends AppCompatActivity {
         anim4.setDuration(4000);
         animatedCircleLoadingView.setPercent(10);
         myCountDownTimer = new MyCountDownTimer(60*1000, 1000);
+        mRadio1 = (RadioButton) findViewById(R.id.answer1_true);
+        mRadio2 = (RadioButton) findViewById(R.id.answer2_false);
+        mRadioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        mFinishAnswer = (FloatingActionButton)findViewById(R.id.finish_answer);
+        editText = (EditText)findViewById(R.id.answer_text);
+        mCheck1 = (CheckBox)findViewById(R.id.check1);
+        mCheck2 = (CheckBox)findViewById(R.id.check2);
+        mCheck3 = (CheckBox)findViewById(R.id.check3);
+        mCheck4 = (CheckBox)findViewById(R.id.check4);
+        mFinishCheckAnswer = (FloatingActionButton) findViewById(R.id.finish_answer_check);
     }
     private boolean validateUsernameDuplicate() {
         boolean isValid = true;
@@ -320,14 +500,60 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void getQuestion(int a){
-        if(a<=9 ) {
+        if(a<=6 ) {
             mQuestion.setText(mQuestions.getQuestion(a));
             ans1.setText(mQuestions.getChoice1(a));
             ans2.setText(mQuestions.getChoice2(a));
             ans3.setText(mQuestions.getChoice3(a));
             ans4.setText(mQuestions.getChoice4(a));
             mAnswer = mQuestions.getCorrectAnswer(a);
-        }else if(a>9){
+        }else if(a==7){
+            mQuestion.setText(mQuestions.getQuestion(a));
+            ans1.setVisibility(View.INVISIBLE);
+            ans2.setVisibility(View.INVISIBLE);
+            ans3.setVisibility(View.INVISIBLE);
+            ans4.setVisibility(View.INVISIBLE);
+            mRadio1.setText(mQuestions.getChoice1(a));
+            mRadio2.setText(mQuestions.getChoice2(a));
+            mRadio1.setAnimation(anim1);
+            mRadio1.setVisibility(View.VISIBLE);
+            mRadio2.setAnimation(anim2);
+            mRadio2.setVisibility(View.VISIBLE);
+            mAnswer = mQuestions.getCorrectAnswer(a);
+        }else if(a==8){
+            mQuestion.setText(mQuestions.getQuestion(a));
+            ans1.setVisibility(View.INVISIBLE);
+            ans2.setVisibility(View.INVISIBLE);
+            ans3.setVisibility(View.INVISIBLE);
+            ans4.setVisibility(View.INVISIBLE);
+            mRadio1.setVisibility(View.INVISIBLE);
+            mRadio2.setVisibility(View.INVISIBLE);
+            editText.setAnimation(anim1);
+            editText.setVisibility(View.VISIBLE);
+            mFinishAnswer.setAnimation(anim2);
+            mFinishAnswer.setVisibility(View.VISIBLE);
+            mAnswer = mQuestions.getCorrectAnswer(8);
+        }else if(a==9){
+            mQuestion.setText(mQuestions.getQuestion(a));
+            ans1.setVisibility(View.INVISIBLE);
+            ans2.setVisibility(View.INVISIBLE);
+            ans3.setVisibility(View.INVISIBLE);
+            ans4.setVisibility(View.INVISIBLE);
+            mRadio1.setVisibility(View.INVISIBLE);
+            mRadio2.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.INVISIBLE);
+            mFinishAnswer.setVisibility(View.INVISIBLE);
+            mCheck1.setVisibility(View.VISIBLE);
+            mCheck2.setVisibility(View.VISIBLE);
+            mCheck3.setVisibility(View.VISIBLE);
+            mCheck4.setVisibility(View.VISIBLE);
+            mFinishCheckAnswer.setVisibility(View.VISIBLE);
+            mCheck1.setText(mQuestions.getChoice1(a));
+            mCheck2.setText(mQuestions.getChoice2(a));
+            mCheck3.setText(mQuestions.getChoice3(a));
+            mCheck4.setText(mQuestions.getChoice4(a));
+            mAnswer = mQuestions.getWrongAnswerMultiple();
+        }else{
             gameOver();
         }
     }
