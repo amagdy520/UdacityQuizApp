@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.github.jlmd.animatedcircleloadingview.AnimatedCircleLoadingView;
@@ -35,25 +36,47 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MainActivity extends AppCompatActivity {
+
+
     private MyCountDownTimer myCountDownTimer;
+
     private AnimatedCircleLoadingView  animatedCircleLoadingView;
+
     private CardView cardView;
+
     private FloatingActionButton mStart, mFinishAnswer, mFinishCheckAnswer;
+
     private TextView mUsernameInput, mText, mScore , mPoints, mTextPoint ,mSkip,mQuestion,textCounter;
+
     private TextInputLayout mUsernameInputLayout;
+
     private LinearLayout linearLayout;
+
     private final int GALLERY_REQUEST=1;
+
     private Uri mImageUri = null;
+
     private CircleImageView mSelectImage,mSelectImage2;
-    private int mScoreGet = 0,mPoint = 0;
+
+    private int mScoreGet = 1,mPoint = 0;
+
     private TranslateAnimation anim1,anim2,anim3,anim4;
+
     private Button ans1,ans2,ans3,ans4;
+
     private Questions mQuestions = new Questions();
+
     private String mAnswer;
+
     private RadioButton mRadio1,mRadio2;
+
     private RadioGroup mRadioGroup;
+
     private EditText editText;
+
     private CheckBox mCheck1,mCheck2,mCheck3,mCheck4;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             ans1.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -84,13 +107,14 @@ public class MainActivity extends AppCompatActivity {
                     animatedCircleLoadingView.stopFailure();
                     ans1.setBackgroundResource(R.drawable.answer_wrong);
                     mScoreGet++;
+                    Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ans1.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -112,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             ans2.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -122,13 +146,14 @@ public class MainActivity extends AppCompatActivity {
                     animatedCircleLoadingView.stopFailure();
                     ans2.setBackgroundResource(R.drawable.answer_wrong);
                     mScoreGet++;
+                    Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ans2.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -150,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             ans3.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -160,13 +185,14 @@ public class MainActivity extends AppCompatActivity {
                     animatedCircleLoadingView.stopFailure();
                     ans3.setBackgroundResource(R.drawable.answer_wrong);
                     mScoreGet++;
+                    Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ans3.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -188,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             ans4.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -198,13 +224,14 @@ public class MainActivity extends AppCompatActivity {
                     animatedCircleLoadingView.stopFailure();
                     ans4.setBackgroundResource(R.drawable.answer_wrong);
                     mScoreGet++;
+                    Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ans4.setBackgroundResource(R.drawable.answer_button);
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -243,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     animatedCircleLoadingView.resetLoading();
-                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    mScore.setText(String.valueOf(mScoreGet)+"/10");
                                     getQuestion(mScoreGet);
                                 }
                             },1000);
@@ -251,12 +278,13 @@ public class MainActivity extends AppCompatActivity {
                             animatedCircleLoadingView.stopFailure();
                             mRadio1.setBackgroundResource(R.drawable.answer_wrong);
                             mScoreGet++;
+                            Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     animatedCircleLoadingView.resetLoading();
-                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    mScore.setText(String.valueOf(mScoreGet)+"/10");
                                     getQuestion(mScoreGet);
                                 }
                             },1000);
@@ -274,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     animatedCircleLoadingView.resetLoading();
-                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    mScore.setText(String.valueOf(mScoreGet)+"/10");
                                     getQuestion(mScoreGet);
                                 }
                             },1000);
@@ -282,12 +310,13 @@ public class MainActivity extends AppCompatActivity {
                             animatedCircleLoadingView.stopFailure();
                             mRadio2.setBackgroundResource(R.drawable.answer_wrong);
                             mScoreGet++;
+                            Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     animatedCircleLoadingView.resetLoading();
-                                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                    mScore.setText(String.valueOf(mScoreGet)+"/10");
                                     getQuestion(mScoreGet);
                                 }
                             },1000);
@@ -311,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -319,12 +348,13 @@ public class MainActivity extends AppCompatActivity {
                     animatedCircleLoadingView.stopFailure();
                     editText.setBackgroundResource(R.drawable.answer_wrong);
                     mScoreGet++;
+                    Toast.makeText(MainActivity.this,"Right Answer IS: "+mAnswer,Toast.LENGTH_SHORT).show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             animatedCircleLoadingView.resetLoading();
-                            mScore.setText(String.valueOf(mScoreGet)+"/9");
+                            mScore.setText(String.valueOf(mScoreGet)+"/10");
                             getQuestion(mScoreGet);
                         }
                     },1000);
@@ -365,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 animatedCircleLoadingView.resetLoading();
-                                mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                mScore.setText(String.valueOf(mScoreGet)+"/10");
                                 getQuestion(mScoreGet);
                             }
                         },1000);
@@ -380,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 animatedCircleLoadingView.resetLoading();
-                                mScore.setText(String.valueOf(mScoreGet)+"/9");
+                                mScore.setText(String.valueOf(mScoreGet)+"/10");
                                 getQuestion(mScoreGet);
                             }
                         },1000);
@@ -477,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mSelectImage2.setVisibility(View.VISIBLE);
                     mText.setText(mUsernameInput.getText().toString());
-                    mScore.setText(String.valueOf(mScoreGet)+"/9");
+                    mScore.setText(String.valueOf(mScoreGet)+"/10");
                     mSkip.setVisibility(View.VISIBLE);
                     mPoints.setVisibility(View.VISIBLE);
                     mTextPoint.setVisibility(View.VISIBLE);
@@ -500,14 +530,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void getQuestion(int a){
-        if(a<=6 ) {
+        if(a<=7 ) {
             mQuestion.setText(mQuestions.getQuestion(a));
             ans1.setText(mQuestions.getChoice1(a));
             ans2.setText(mQuestions.getChoice2(a));
             ans3.setText(mQuestions.getChoice3(a));
             ans4.setText(mQuestions.getChoice4(a));
             mAnswer = mQuestions.getCorrectAnswer(a);
-        }else if(a==7){
+        }else if(a==8){
             mQuestion.setText(mQuestions.getQuestion(a));
             ans1.setVisibility(View.INVISIBLE);
             ans2.setVisibility(View.INVISIBLE);
@@ -520,7 +550,7 @@ public class MainActivity extends AppCompatActivity {
             mRadio2.setAnimation(anim2);
             mRadio2.setVisibility(View.VISIBLE);
             mAnswer = mQuestions.getCorrectAnswer(a);
-        }else if(a==8){
+        }else if(a==9){
             mQuestion.setText(mQuestions.getQuestion(a));
             ans1.setVisibility(View.INVISIBLE);
             ans2.setVisibility(View.INVISIBLE);
@@ -532,8 +562,8 @@ public class MainActivity extends AppCompatActivity {
             editText.setVisibility(View.VISIBLE);
             mFinishAnswer.setAnimation(anim2);
             mFinishAnswer.setVisibility(View.VISIBLE);
-            mAnswer = mQuestions.getCorrectAnswer(8);
-        }else if(a==9){
+            mAnswer = mQuestions.getCorrectAnswer(a);
+        }else if(a==10){
             mQuestion.setText(mQuestions.getQuestion(a));
             ans1.setVisibility(View.INVISIBLE);
             ans2.setVisibility(View.INVISIBLE);
@@ -558,6 +588,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void gameOver(){
+        mScoreGet = 10;
+        mScore.setText(String.valueOf(mScoreGet)+"/10");
+        Toast.makeText(this,"Your Score Is: "+mPoint+" Points.",Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("Game Over Your Score Is: "+mPoint+" Points.")
                 .setCancelable(false)
@@ -581,7 +614,7 @@ public class MainActivity extends AppCompatActivity {
     public void skipQuestion(View view){
         mScoreGet++;
         getQuestion(mScoreGet);
-        mScore.setText(String.valueOf(mScoreGet)+"/9");
+        mScore.setText(String.valueOf(mScoreGet)+"/10");
     }
     public void chooseImage(View view){
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);

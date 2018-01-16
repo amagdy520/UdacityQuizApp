@@ -3,7 +3,9 @@
     <string name="Start">Start Quiz</string>
     <string name="empty_username">Your username cannot be empty.</string>
     <string name="too_long_username">Your username is too long.</string>
-    <string name="taken_username">This username is already taken.</string>
     <string name="create_profile">Save your progress in your profile.</string>
     <string name="welcome">Welcome to Udacity Quiz.</string>
+    <string name="Skip">Skip</string>
+    <string name="Question">Question</string>
+    <string name="hint_answer">Submit Your Answer Here</string>
 </resources>

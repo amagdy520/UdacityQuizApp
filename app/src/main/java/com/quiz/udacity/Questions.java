@@ -6,6 +6,7 @@ package com.quiz.udacity;
 
 public class Questions {
     public String mQuestions []={
+            "",
             "What is the range of short data type in Java?",
             "Which data type value is returned by all transcendental math functions?",
             "What would be the behaviour if this() and super() used in a method?",
@@ -18,6 +19,7 @@ public class Questions {
             "What is the programming languages from the above answer?(choose all the right)"
     };
     private String mChoices[][]={
+            {"",""},
             {"-128 to 127","-32768 to 32767","-2147483648 to 2147483647","None of the mentioned"},
             {"int","float","double","long"},
             {"Runtime error","Throws exception","Compile time error","Runs successfully"},
@@ -30,6 +32,7 @@ public class Questions {
             {"C++","Flip Flop","Python","Java"}
     };
     private String mCorrectAnswer []={
+            "",
             "-32768 to 32767",
             "double",
             "Compile time error",
